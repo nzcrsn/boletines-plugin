@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# OS/editor temporary files
+*.log
+
+# WordPress local development
+wp-content/uploads/
