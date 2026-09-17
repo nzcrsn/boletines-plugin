@@ -1,27 +1,46 @@
 /* 
  * ------------------------
- * Latest newsletter styles 
+ * General newsletter styles 
  * -------------------------
 */
 
-.latest-newsletter-container {
-    min-width: 100%;
-    height: 100%;
-    justify-content: center;
-    aspect-ratio: 16/9;
+
+.newsletter-header {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
-.latest-newsletter-container a {
-    display: flex;
-    width: 100%;
-    height: 100%;
+.heading {
+    font-size: 1.2rem;
+    margin-bottom: .2rem;
+    line-height: 1.4rem;
 }
 
-.latest-newsletter-container a img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+
+.heading span {
+    color: #757575;
+    margin: 0;
 }
+
+.supporting-text {
+    font-size: .9rem;
+    margin-top: .1 rem;
+    color: #757575;
+}
+
+.section-form input,
+.section-form select {
+    border: 1px solid #D9D9D9;
+    border-radius: var(--border-radius);
+    height: 1.9rem;
+    padding-left: .5rem;
+    background-color: white;
+}
+
+.section-form input {
+    padding-left: .8rem;
+}
+
 
 /* 
  * ------------------------
@@ -29,15 +48,281 @@
  * -------------------------
 */
 
+.latest-newsletter-container {
+    width: 100%;
+    justify-content: center;
+    scroll-snap-type: x mandatory;
 
+    aspect-ratio: 16 / 9;
 
-.newsletters-container .newsletter-item a {
+    position: relative;
+}
+
+@media (min-width: 950px) {
+    .latest-newsletter-container {
+        height: 70vh;
+    }
+}
+
+:root {
+    --width-svg: clamp(3rem, 8vw, 4rem);
+}
+
+.latest-newsletter-item {
+
     display: flex;
     width: 100%;
     height: 100%;
+
+    scroll-snap-stop: always;
+    scroll-snap-align: start;
+
+
+
+    border-radius: 10px;
+    overflow: hidden;
+
+
+
+    --radius: 10px;
+    --action-size: clamp(3rem, 8vw, 4rem);
+
+
+
+    /* Outer/convex */
+
+    --r: var(--radius);
+    --n: var(--action-size);
+
+    mask:
+
+        /* 1. Main left area */
+        linear-gradient(#000 0 0) left top / calc(100% - var(--n) - var(--r)) 100% no-repeat,
+
+
+        /* 2. Vertical wall before the notch */
+        linear-gradient(#000 0 0) right var(--n) top var(--r) / var(--r) calc(var(--n) - var(--r)) no-repeat,
+
+
+        /* 3. OUTER radius: top → vertical notch wall */
+        radial-gradient(circle var(--r) at 0 100%,
+            #000 calc(var(--r) - .5px),
+            transparent var(--r)) right var(--n) top / var(--r) var(--r) no-repeat,
+
+
+        /* 4. INNER / concave radius */
+        radial-gradient(circle var(--r) at 100% 0,
+            transparent calc(var(--r) - .5px),
+            #000 var(--r)) right calc(var(--n) - var(--r)) top calc(var(--n) - var(--r)) / var(--r) var(--r) no-repeat,
+
+
+        /* 5. Horizontal area immediately below notch */
+        linear-gradient(#000 0 0) right var(--r) top var(--n) / var(--n) var(--r) no-repeat,
+
+
+        /* 6. OUTER radius: horizontal → right edge */
+        radial-gradient(circle var(--r) at 0 100%,
+            #000 calc(var(--r) - .5px),
+            transparent var(--r)) right top var(--n) / var(--r) var(--r) no-repeat,
+
+
+        /* 7. Everything below the notch */
+        linear-gradient(#000 0 0) left bottom / 100% calc(100% - var(--n) - var(--r)) no-repeat;
+
 }
 
+.latest-newsletter-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.latest-newsletter-item-icon-container svg {
+    width: calc(var(--width-svg) - 3px);
+    height: calc(var(--width-svg) - 3px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background-color: #546889;
+    /* #001430;*/
+    border-radius: 10px;
+}
+
+/* 
+ * ------------------------
+ * Archive newsletter styles 
+ * -------------------------
+*/
+
+.arrow-navigation {
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+
+}
+
+.arrow-navigation .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #001430;
+    border-radius: 50%;
+    color: #EFF4FA;
+    transition: all 300ms;
+
+    width: clamp(1.8rem, 1.8rem + 1.2vw, 4rem);
+    height: clamp(1.8rem, 1.8rem + 1.2vw, 4rem);
+}
+
+.arrow-navigation .arrow:hover {
+    background-color: #EFF4FA;
+    color: #001430;
+}
+
+.arrow-navigation .left {
+    transform: rotate(180deg);
+}
+
+button.disabled,
+.arrow.disabled {
+    pointer-events: none;
+    background-color: #D3D3D3;
+
+    /* opacity: 0.5; */
+}
+
+/**/
+
+.newsletters-container .newsletter-item {
+    width: 100%;
+    border-radius: 8px;
+    user-select: none;
+    -webkit-user-select: none;
+    aspect-ratio: 1 / 1;
+
+    position: relative;
+
+}
+
+:root {
+    --width-previous-nl-svg: clamp(1rem, 8vw, 2rem);
+}
+
+
+.previous-newsletter-item {
+
+    position: absolute;
+    inset: 0;
+
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+
+    overflow: hidden;
+    border-radius: 10px;
+
+
+    --radius: 10px;
+    --action-size: clamp(1.5rem, 8vw, 2rem);
+
+
+
+    /* Outer/convex */
+
+    --r: var(--radius);
+    --n: var(--action-size);
+
+    mask:
+
+        /* 1. Main left area */
+        linear-gradient(#000 0 0) left top / calc(100% - var(--n) - var(--r)) 100% no-repeat,
+
+
+        /* 2. Vertical wall before the notch */
+        linear-gradient(#000 0 0) right var(--n) top var(--r) / var(--r) calc(var(--n) - var(--r)) no-repeat,
+
+
+        /* 3. OUTER radius: top → vertical notch wall */
+        radial-gradient(circle var(--r) at 0 100%,
+            #000 calc(var(--r) - .5px),
+            transparent var(--r)) right var(--n) top / var(--r) var(--r) no-repeat,
+
+
+        /* 4. INNER / concave radius */
+        radial-gradient(circle var(--r) at 100% 0,
+            transparent calc(var(--r) - .5px),
+            #000 var(--r)) right calc(var(--n) - var(--r)) top calc(var(--n) - var(--r)) / var(--r) var(--r) no-repeat,
+
+
+        /* 5. Horizontal area immediately below notch */
+        linear-gradient(#000 0 0) right var(--r) top var(--n) / var(--n) var(--r) no-repeat,
+
+
+        /* 6. OUTER radius: horizontal → right edge */
+        radial-gradient(circle var(--r) at 0 100%,
+            #000 calc(var(--r) - .5px),
+            transparent var(--r)) right top var(--n) / var(--r) var(--r) no-repeat,
+
+
+        /* 7. Everything below the notch */
+        linear-gradient(#000 0 0) left bottom / 100% calc(100% - var(--n) - var(--r)) no-repeat;
+
+
+}
+
+.previous-newsletter-item img {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+
+
+    border-radius: 8px;
+    overflow: hidden;
+
+
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.previous-newsletter-item-icon-container svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background-color: #546889;
+    /*#001430;*/
+
+    width: calc(var(--width-previous-nl-svg) - 3px);
+    height: calc(var(--width-previous-nl-svg) - 3px);
+
+    border-radius: 10px;
+}
+
+
+/**/
 @media (max-width: 768px) {
+
     .newsletters-container {
         display: flex;
         width: 100%;
@@ -45,8 +330,13 @@
         flex-wrap: nowrap;
         gap: 1rem;
         scrollbar-width: none;
+
+
         /* For Internet Explorer and Edge */
         -ms-overflow-style: none;
+
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
     }
 
     /* For Chrome, Safari, and Opera */
@@ -64,17 +354,263 @@
         object-fit: cover;
         width: 100%;
         height: 100%;
+
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     .newsletters-container {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(200px, 1fr));
-        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
         gap: 1rem;
-        place-items: center;
+        justify-content: center;
+
+        margin-top: 2rem;
+        width: 100%;
+
         overflow: hidden;
-        background-color: transparent;
+    }
+
+    .latest-newsletter-container,
+    .newsletter-item {
+        overflow: hidden;
+    }
+
+    .newsletter-item {
+        flex: 0 0 calc((100% - 5rem - 60px) / 6);
+
+        aspect-ratio: 1 / 1;
+        position: relative;
+
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .newsletter-item:nth-child(6n + 2),
+    .newsletter-item:nth-child(6n + 4) {
+        margin-right: 30px;
+    }
+
+
+    .latest-newsletter-container a img,
+    .newsletter-item a img {
+        transition: transform 800ms;
+    }
+
+    .latest-newsletter-container:hover a img,
+    .newsletter-item:hover a img {
+        transform: scale(1.09);
+
+    }
+
+    .arrow-navigation {
+        display: none;
+    }
+}
+
+
+/* 
+ * ------------------------
+ * Search newsletter styles 
+ * -------------------------
+*/
+
+.search-nl-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    /* Local variable */
+    --border-radius: 8px;
+}
+
+.section-form,
+.section-results {
+    width: 100%;
+    max-width: 220px;
+}
+
+.section-form {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.section-results {
+    width: 100%;
+    height: 220px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: .2rem;
+}
+
+.input-field label {
+    font-size: 1rem;
+}
+
+.input-field .warning-label {
+    margin-top: .1rem;
+    margin-bottom: .4rem;
+    font-size: .8rem;
+    color: #757575;
+}
+
+.input-field input {
+    font-size: 1rem;
+}
+
+.input-field select {
+    color: black;
+}
+
+.button-field {
+    margin-top: .8rem;
+    width: 100%;
+}
+
+.button-field button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .4rem;
+    border: none;
+    width: 100%;
+    height: 1.9rem;
+    background-color: #001430;
+    color: white;
+    border-radius: var(--border-radius);
+    transition: none !important;
+}
+
+.button-field button:hover {
+    background-color: #001430;
+    color: white !important;
+    border-radius: var(--border-radius);
+}
+
+
+.button-field .label-button {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.button-field button.disabled {
+    pointer-events: none;
+    background-color: #D3D3D3;
+}
+
+.loader-section {
+    width: 100%;
+    height: 100%;
+}
+
+.loader-section {
+    transition-property: opacity;
+    transition-duration: 1200ms;
+}
+
+.loader-svg {
+    width: 100%;
+    height: 100%;
+    fill: white;
+    position: absolute;
+}
+
+
+@keyframes circles {
+    0% {
+        transform: translateY(-60%)
+    }
+
+    100% {
+        transform: translateY(60%)
+    }
+}
+
+.loader-svg.hidden,
+.search-svg.hidden,
+.label-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-svg .circle {
+    transform: translateY(-60%);
+    transform-box: fill-box;
+    animation: circles 500ms ease-in alternate infinite;
+}
+
+.circle.c2 {
+    animation-delay: 200ms;
+}
+
+.circle.c3 {
+    animation-delay: 400ms;
+}
+
+/* Sectión results */
+
+.section-results {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    aspect-ratio: auto;
+    width: 100%;
+}
+
+.result-state {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.section-results[data-state="initial"] .item-placeholder {
+    opacity: 1;
+    visibility: visible;
+}
+
+.section-results[data-state="not-found"] .not-found,
+.section-results[data-state="success"] .nl-result {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.section-results svg .text {
+    font-size: .14rem;
+    fill: rgba(33, 33, 33, 0.4);
+    transform-box: fill-box;
+    transform: translateX(-50%);
+}
+
+.nl-result {
+    display: flex;
+    height: 100%;
+    /* (ex: to -> 240)*/
+}
+
+.nl-result img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media screen and (min-width: 480px) {
+    .search-nl-container {
+        flex-direction: row;
     }
 }

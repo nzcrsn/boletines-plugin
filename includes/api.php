@@ -8,8 +8,9 @@
  */
 function my_awesome_func($request)
 {
-    $year = $request['year'];
-    $month = $request['month'];
+    $year = intval($request['year']);
+    $month = intval($request['month']);
+    /**TODO: validate API */
     $query = get_newsletter_by_month_year($year, $month);
     $result = "";
     if ($query->have_posts()) {
